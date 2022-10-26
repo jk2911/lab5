@@ -2,6 +2,7 @@ package maxim.goy.lab5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add:
-                toast();
+                Intent intent= new Intent(this, AddEventActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return true;
         }
     }
 
-    public void toast() {
-        Toast.makeText(this, "Adeddddddddd", Toast.LENGTH_SHORT).show();
-    }
+
+
 }
