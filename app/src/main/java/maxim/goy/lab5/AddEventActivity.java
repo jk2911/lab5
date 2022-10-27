@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,16 +16,23 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Time;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import maxim.goy.lab5.Model.Event;
+import maxim.goy.lab5.Model.Image;
 
 public class AddEventActivity extends AppCompatActivity {
     TimePicker time;
 
     DatePicker date;
-    ImageView image;
+    ImageView imageview;
     EditText name, description;
 
 
@@ -37,13 +45,13 @@ public class AddEventActivity extends AppCompatActivity {
 
         time = findViewById(R.id.time);
         date = findViewById(R.id.calendar);
-        image = findViewById(R.id.image);
+        imageview = findViewById(R.id.image);
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
 
     }
 
-    Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_menu, menu);
         return true;
@@ -53,8 +61,7 @@ public class AddEventActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addNew:
-                Intent intent= new Intent(this, AddEventActivity.class);
-                startActivity(intent);
+                addEvent();
                 return true;
             default:
                 return true;
@@ -74,8 +81,22 @@ public class AddEventActivity extends AppCompatActivity {
             final Uri imageUri = imageReturnedIntent.getData();
             final InputStream imageStream = getContentResolver().openInputStream(imageUri);
             Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            image.setImageBitmap(selectedImage);
+            imageview.setImageBitmap(selectedImage);
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addEvent() {
+        Calendar calendar = new GregorianCalendar(date.getYear(), date.getMonth(), date.getDayOfMonth(),
+                time.getHour(), time.getMinute());
+        Event event = new Event(name.getText().toString(), description.getText().toString(), calendar);
+        try {
+            event.pathImages = Image.getInstance().
+                    saveToInternalStorage(((BitmapDrawable) imageview.getDrawable()).getBitmap(),
+                    this, event.getNameImage());
+        }
+        catch(Exception e){
             e.printStackTrace();
         }
     }

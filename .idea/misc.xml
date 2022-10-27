@@ -3,11 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Asus/Desktop/PMC/lab5/app/src/main/res/layout/activity_add_event.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/Desktop/PMC/lab5/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Asus/Desktop/PMC/lab5/app/src/main/res/menu/menu.xml" value="0.1265625" />
-        <entry key="..\:/bstu/lab5/app/src/main/res/layout/activity_add_event.xml" value="0.36666666666666664" />
-        <entry key="..\:/bstu/lab5/app/src/main/res/menu/add_menu.xml" value="0.26631259484066766" />
-        <entry key="..\:/bstu/lab5/app/src/main/res/menu/menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

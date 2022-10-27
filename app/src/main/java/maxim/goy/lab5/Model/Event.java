@@ -15,4 +15,15 @@ public class Event implements Serializable {
         this.calendar = calendar;
         this.pathImages = pathImages;
     }
+
+    public Event(String name, String description, Calendar calendar) {
+        this.name = name;
+        this.description = description;
+        this.calendar = calendar;
+    }
+
+    public String getNameImage() {
+        return name + calendar.get(Calendar.YEAR) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.DATE) +
+                calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
+    }
 }

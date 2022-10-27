@@ -23,7 +23,6 @@ public class Image {
 
     public String saveToInternalStorage(Bitmap bitmapImage, AppCompatActivity app, String name) throws IOException {
         ContextWrapper cw = new ContextWrapper(app.getApplicationContext());
-        // путь /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         // Создаем imageDir
         File mypath = new File(directory, name + ".jpg");
@@ -38,12 +37,12 @@ public class Image {
         } finally {
             fos.close();
         }
-        return directory.getAbsolutePath();
+        return directory.getAbsolutePath() + "/" + name;
     }
 
-    public void loadImageFromStorage(String path, ImageView imageView) {
+    public void loadImageFromStorage(String path, ImageView imageView, String name) {
         try {
-            File f = new File(path, "profile.jpg");
+            File f = new File(path, name + ".jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
 
             imageView.setImageBitmap(b);
