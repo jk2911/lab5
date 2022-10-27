@@ -40,9 +40,9 @@ public class Image {
         return directory.getAbsolutePath() + "/" + name;
     }
 
-    public void loadImageFromStorage(String path, ImageView imageView, String name) {
+    public void loadImageFromStorage(ImageView imageView, String name) {
         try {
-            File f = new File(path, name + ".jpg");
+            File f = new File(name + ".jpg");
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
 
             imageView.setImageBitmap(b);

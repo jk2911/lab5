@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import maxim.goy.lab5.Model.Event;
+import maxim.goy.lab5.Model.EventsList;
 import maxim.goy.lab5.Model.Image;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -43,12 +44,25 @@ public class AddEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
+        Event event = (Event) getIntent().getExtras().getSerializable("event");
+
+
         time = findViewById(R.id.time);
         date = findViewById(R.id.calendar);
         imageview = findViewById(R.id.image);
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
 
+        if (event == null)
+            return;
+        name.setText(event.name);
+        description.setText(event.description
+        );
+        Image.getInstance().loadImageFromStorage(imageview, event.pathImages);
+        date.updateDate(event.calendar.get(Calendar.YEAR), event.calendar.get(Calendar.MONTH),
+                event.calendar.get(Calendar.DATE));
+        time.setHour(event.calendar.get(Calendar.HOUR));
+        time.setMinute(event.calendar.get(Calendar.MINUTE));
     }
 
     @Override
@@ -94,10 +108,13 @@ public class AddEventActivity extends AppCompatActivity {
         try {
             event.pathImages = Image.getInstance().
                     saveToInternalStorage(((BitmapDrawable) imageview.getDrawable()).getBitmap(),
-                    this, event.getNameImage());
-        }
-        catch(Exception e){
+                            this, event.getNameImage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        EventsList eventsList = new EventsList(this);
+        eventsList.AddEvent(event);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
