@@ -77,17 +77,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
+            case R.id.info:
+                InfoEvent(info.position);
+                return true;
             case R.id.change:
+                ChangeEvent(info.position);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
-    public void ChangeEvent() {
-        Intent intent = new Intent(this, AddEventActivity.class);
+    public void ChangeEvent(int position) {
+        Intent intent = new Intent(this, ChangeEventActivity.class);
+        intent.putExtra("event", (Event) events.getItemAtPosition(position));
         startActivity(intent);
     }
 
+    public void InfoEvent(int position) {
+        Intent intent = new Intent(this, EventInfoActivity.class);
+        intent.putExtra("event", (Event) events.getItemAtPosition(position));
+        startActivity(intent);
+    }
 }

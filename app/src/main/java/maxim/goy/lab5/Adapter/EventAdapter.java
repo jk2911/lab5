@@ -41,7 +41,7 @@ public class EventAdapter extends ArrayAdapter {
 
         Image.getInstance().loadImageFromStorage(imageView, event.pathImages);
         nameView.setText(event.name);
-        date.setText(event.getStringDate());
+        date.setText(event.getStringDateForListView());
 
         return view;
     }

@@ -27,8 +27,22 @@ public class Event implements Serializable {
                 calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
     }
 
+    public String getStringDateForListView() {
+        return getStringDate() + "\n" + getStringTime();
+    }
+
     public String getStringDate() {
-        return "" + calendar.get(Calendar.YEAR) + "." + (calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.DATE) +
-                "     " + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + "";
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DATE);
+        return (day < 10 ? "0" + day : day) + "." +
+                (month < 10 ? "0" + month : month) + "." +
+                calendar.get(Calendar.YEAR);
+    }
+
+    public String getStringTime() {
+        int hour = calendar.get(Calendar.HOUR);
+        int minute = calendar.get(Calendar.MINUTE);
+        return (hour < 10 ? "0" + hour : hour) + ":" +
+                (minute < 10 ? "0" + minute : minute);
     }
 }

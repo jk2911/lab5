@@ -44,8 +44,6 @@ public class AddEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
-        Event event = (Event) getIntent().getExtras().getSerializable("event");
-
 
         time = findViewById(R.id.time);
         date = findViewById(R.id.calendar);
@@ -53,16 +51,6 @@ public class AddEventActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
 
-        if (event == null)
-            return;
-        name.setText(event.name);
-        description.setText(event.description
-        );
-        Image.getInstance().loadImageFromStorage(imageview, event.pathImages);
-        date.updateDate(event.calendar.get(Calendar.YEAR), event.calendar.get(Calendar.MONTH),
-                event.calendar.get(Calendar.DATE));
-        time.setHour(event.calendar.get(Calendar.HOUR));
-        time.setMinute(event.calendar.get(Calendar.MINUTE));
     }
 
     @Override
