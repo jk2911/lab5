@@ -5,4 +5,10 @@
     <item
         android:id="@+id/add"
         android:title="Добавить"/>
+    <item
+        android:id="@+id/asc_order"
+        android:title="Сортировать по возрастанию"/>
+    <item
+        android:id="@+id/desc_order"
+        android:title="Сортировать по убыванию"/>
 </menu>

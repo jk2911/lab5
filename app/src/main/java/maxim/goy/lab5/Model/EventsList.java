@@ -31,4 +31,10 @@ public class EventsList {
         }.getType();
         jsonHelper.exportToJSON(this.context, events, fileName, typeClass);
     }
+    public void RemoveEvent(Event event) {
+        events.remove(event);
+        Type typeClass = new TypeToken<List<Event>>() {
+        }.getType();
+        jsonHelper.exportToJSON(this.context, events, fileName, typeClass);
+    }
 }
