@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,11 +18,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import maxim.goy.lab5.Model.Event;
+import maxim.goy.lab5.Model.EventsList;
 import maxim.goy.lab5.Model.Image;
 
 public class ChangeEventActivity extends AppCompatActivity {
@@ -64,9 +68,12 @@ public class ChangeEventActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.save:
+                changeEvent();
+                goToMainActivity();
+                return true;
             case R.id.cancel:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                goToMainActivity();
                 return true;
             default:
                 return true;
@@ -90,5 +97,26 @@ public class ChangeEventActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void goToMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void changeEvent() {
+        EventsList eventsList = new EventsList(this);
+        eventsList.RemoveEvent(event);
+        event.name = name.getText().toString();
+        event.description = description.getText().toString();
+        event.calendar = new GregorianCalendar(date.getYear(), date.getMonth(), date.getDayOfMonth(),
+                time.getHour(), time.getMinute());
+        try {
+            event.pathImages = Image.getInstance().saveToInternalStorage(
+                    ((BitmapDrawable) imageView.getDrawable()).getBitmap(), this, event.getNameImage());
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        eventsList.AddEvent(event);
     }
 }
