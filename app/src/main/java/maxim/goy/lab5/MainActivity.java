@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         eventsList = new EventsList(this);
 
-        Intent intent = new Intent(this, AddEventActivity.class);
+        Intent intent = new Intent(this, ChangeEventActivity.class);
 
         EventAdapter adapter = new EventAdapter(this, R.layout.list_item, eventsList.events);
         events.setAdapter(adapter);

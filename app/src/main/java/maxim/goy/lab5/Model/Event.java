@@ -2,6 +2,7 @@ package maxim.goy.lab5.Model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class Event implements Serializable {
     public String name;
@@ -44,5 +45,19 @@ public class Event implements Serializable {
         int minute = calendar.get(Calendar.MINUTE);
         return (hour < 10 ? "0" + hour : hour) + ":" +
                 (minute < 10 ? "0" + minute : minute);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return name.equals(event.name) && Objects.equals(description, event.description) &&
+                Objects.equals(calendar, event.calendar) && pathImages.equals(event.pathImages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, calendar, pathImages);
     }
 }

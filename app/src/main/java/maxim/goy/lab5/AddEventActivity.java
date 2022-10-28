@@ -33,7 +33,7 @@ public class AddEventActivity extends AppCompatActivity {
     TimePicker time;
 
     DatePicker date;
-    ImageView imageview;
+    ImageView imageView;
     EditText name, description;
 
 
@@ -47,7 +47,7 @@ public class AddEventActivity extends AppCompatActivity {
 
         time = findViewById(R.id.time);
         date = findViewById(R.id.calendar);
-        imageview = findViewById(R.id.image);
+        imageView = findViewById(R.id.image);
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
 
@@ -83,7 +83,7 @@ public class AddEventActivity extends AppCompatActivity {
             final Uri imageUri = imageReturnedIntent.getData();
             final InputStream imageStream = getContentResolver().openInputStream(imageUri);
             Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            imageview.setImageBitmap(selectedImage);
+            imageView.setImageBitmap(selectedImage);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -95,7 +95,7 @@ public class AddEventActivity extends AppCompatActivity {
         Event event = new Event(name.getText().toString(), description.getText().toString(), calendar);
         try {
             event.pathImages = Image.getInstance().
-                    saveToInternalStorage(((BitmapDrawable) imageview.getDrawable()).getBitmap(),
+                    saveToInternalStorage(((BitmapDrawable) imageView.getDrawable()).getBitmap(),
                             this, event.getNameImage());
         } catch (Exception e) {
             e.printStackTrace();
