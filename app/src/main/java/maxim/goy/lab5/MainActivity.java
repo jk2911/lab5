@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import maxim.goy.lab5.Adapter.EventAdapter;
@@ -69,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.add:
                 Intent intent = new Intent(this, AddEventActivity.class);
                 startActivity(intent);
+                return true;
+            case R.id.asc_order:
+                sortedEventsInAsc();
+                return true;
+            case R.id.desc_order:
+                sortedEventsInDesc();
                 return true;
             default:
                 return true;
@@ -136,4 +144,24 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    void sortedEventsInAsc() {
+        Collections.sort(eventsList.events, new Comparator<Event>() {
+            @Override
+            public int compare(Event event, Event t1) {
+                return event.calendar.compareTo(t1.calendar);
+            }
+        });
+        adapter.notifyDataSetChanged();
+    }
+
+    void sortedEventsInDesc() {
+        Collections.sort(eventsList.events, new Comparator<Event>() {
+            @Override
+            public int compare(Event event, Event t1) {
+                return t1.calendar.compareTo(event.calendar);
+            }
+        });
+        adapter.notifyDataSetChanged();
+    }
 }
